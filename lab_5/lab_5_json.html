@@ -282,12 +282,25 @@
     sessionStorage.setItem("countries", JSON.stringify(countries));
   </script>
   <script>
-    function loadData()
-    {
-      var c = JSON.parse(sessionStorage.getItem("countries"));
-      console.log(c);
-      for(i = 0; i < c.length; i++){
-        console.log(c[i]);
+    function getRandom(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function loadData() {
+      let c = JSON.parse(sessionStorage.getItem("countries"));
+      const element = document.querySelector(".instructions");
+      const array = c.map(i => i.name);
+
+      element.innerHTML = "";
+      let p = [];
+      for(let i = 1; i <= 50; i++) {
+        let random = getRandom(0, 242);
+        while(!p.includes(random)){
+          p.push(random);
+        }
+        let el = document.createElement("p");
+        el.innerText = i.toString() + ". " + array[random];
+        element.appendChild(el);
       }
     }
   </script>
